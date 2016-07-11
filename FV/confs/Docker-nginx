@@ -1,0 +1,11 @@
+FROM debian:jessie
+
+RUN apt-get update && apt-get install -y libexpat1 libpcre++0 uuid libsqlite3-0 libpcrecpp0 libcurl4-openssl-dev libgeoip-dev ca-certificates libpcre3-dev zlib1g-dev build-essential libssl-dev
+ADD nginx /root/nginx/
+ADD nginx_rtmp /root/nginx_rtmp/
+WORKDIR /root/nginx
+RUN ./configure --add-module=/root/nginx_rtmp 
+RUN make
+RUN make install
+
+

@@ -1,0 +1,20 @@
+apt-get update && apt-get install -y libexpat1 libpcre++0 uuid libsqlite3-0 libpcrecpp0 libcurl4-openssl-dev libgeoip-dev ca-certificates libpcre3-dev zlib1g-dev build-essential libssl-dev
+
+apt-get install -y git gcc make libaio1 libpcre3-dev openssl libssl-dev wget ffmpeg 
+ 
+ 
+cd /root
+# Download nginx and nginx-rtmp-module
+wget http://nginx.org/download/nginx-1.9.4.tar.gz
+git clone https://github.com/arut/nginx-rtmp-module.git
+ 
+# Compile nginx with nginx-rtmp and libaio
+tar zxvf nginx-1.9.4.tar.gz
+cd nginx-1.9.4 
+./configure --prefix=/usr/local/nginx --with-file-aio --add-module=/root/nginx-rtmp-module --with-debug 
+make
+make install
+mkdir /var/log/nginx
+cp /root/nginx.conf /usr/local/nginx/conf/ 
+# Link nginx
+ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx

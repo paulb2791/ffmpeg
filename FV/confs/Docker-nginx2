@@ -1,0 +1,11 @@
+FROM nginx
+RUN apt-get -y install autoconf automake libass-dev libfreetype6-dev libtheora-dev libtool libvorbis-dev pkg-config texinfo yasm libx264-dev wget
+ADD install /root/install
+RUN mkdir /root/ffmpeg_sources
+RUN . /root/install
+RUN mkdir /usr/local/nginx/conf/testing
+RUN ln -s /usr/local/nginx/sbin/nginx /bin/nginx
+RUN ln -s /root/bin/ffmpeg /bin/ffmpeg
+ADD nginx.conf /usr/local/nginx/conf/nginx.conf
+
+
